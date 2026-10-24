@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Baber Shop Drancy</title>
+<meta name="description" content="Coupe, dégradé et taille de barbe à Drancy. Prenez rendez-vous par téléphone.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --noir:#000; --blanc:#fff; --gris:#9a9a9a; --trait:rgba(255,255,255,.18); --verre:rgba(255,255,255,.05); }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--noir); color:var(--blanc); font-family:"Space Grotesk",system-ui,sans-serif; line-height:1.6; overflow-x:hidden; }
+  a { color:inherit; }
+  :focus-visible { outline:3px solid var(--blanc); outline-offset:3px; }
+  .wrap { max-width:1000px; margin:0 auto; padding:0 24px; position:relative; }
+  .titre { font-family:"Big Shoulders Display",Impact,sans-serif; }
+
+  /* En-tête en verre */
+  header { position:sticky; top:0; z-index:10; backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); background:rgba(0,0,0,.55); border-bottom:1px solid var(--trait); }
+  header .wrap { display:flex; justify-content:space-between; align-items:center; padding-top:14px; padding-bottom:14px; }
+  .logo { font-family:"Big Shoulders Display",Impact,sans-serif; font-weight:800; font-size:1.4rem; letter-spacing:.03em; text-decoration:none; }
+  nav { display:flex; gap:22px; align-items:center; }
+  nav a.lien { text-decoration:none; color:var(--gris); transition:color .2s; }
+  nav a.lien:hover { color:var(--blanc); }
+  @media (max-width:560px) { nav a.lien { display:none; } }
+
+  .btn { display:inline-block; padding:12px 24px; border:1px solid var(--blanc); font-weight:600; text-decoration:none; transition:background .2s, color .2s, box-shadow .2s; clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px); }
+  .btn:hover { background:var(--blanc); color:var(--noir); box-shadow:0 0 28px rgba(255,255,255,.55); }
+  .btn.plein { background:var(--blanc); color:var(--noir); }
+  .btn.plein:hover { background:var(--noir); color:var(--blanc); }
+
+  /* Héros : sol en grille et halo */
+  .hero { position:relative; overflow:hidden; padding:72px 0 120px; isolation:isolate; }
+  .hero::before { content:""; position:absolute; left:-50%; right:-50%; bottom:-10%; height:70%; z-index:-1;
+    background-image:linear-gradient(var(--trait) 1px, transparent 1px), linear-gradient(90deg, var(--trait) 1px, transparent 1px);
+    background-size:60px 60px; transform:perspective(380px) rotateX(62deg); transform-origin:bottom;
+    mask-image:linear-gradient(to top, #000 10%, transparent 90%); -webkit-mask-image:linear-gradient(to top, #000 10%, transparent 90%);
+    animation:sol 6s linear infinite; }
+  @keyframes sol { to { background-position:0 60px; } }
+  .hero::after { content:""; position:absolute; top:-20%; left:55%; width:520px; height:520px; z-index:-1;
+    background:radial-gradient(circle, rgba(255,255,255,.22), transparent 65%); filter:blur(10px); }
+  .hero h1 { font-family:"Big Shoulders Display",Impact,sans-serif; font-weight:900; font-size:clamp(4rem,17vw,11rem); line-height:.85;
+    background:linear-gradient(180deg,#fff 40%,#7a7a7a); -webkit-background-clip:text; background-clip:text; color:transparent;
+    filter:drop-shadow(0 0 22px rgba(255,255,255,.35)); }
+  .hero p { max-width:34ch; margin:28px 0 32px; font-size:1.15rem; color:#d6d6d6; }
+  .hero .actions { display:flex; gap:14px; flex-wrap:wrap; }
+
+  /* Faisceau lumineux, clin d'œil au poteau de barbier */
+  .pole { height:26px; background:repeating-linear-gradient(-45deg,var(--blanc) 0 14px,var(--noir) 14px 28px); background-size:39.6px 100%;
+    animation:pole 3s linear infinite; box-shadow:0 0 30px rgba(255,255,255,.45), inset 0 0 0 1px var(--blanc); }
+  @keyframes pole { to { background-position:39.6px 0; } }
+
+  @media (prefers-reduced-motion: reduce) { .pole, .hero::before { animation:none; } html { scroll-behavior:auto; } }
+
+  section { padding:80px 0; }
+  h2 { font-family:"Big Shoulders Display",Impact,sans-serif; font-weight:800; font-size:clamp(2.2rem,6vw,3.4rem); line-height:1; margin-bottom:36px; }
+
+  /* Tarifs : panneaux de verre à coins marqués */
+  .tarifs { list-style:none; display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px; }
+  .tarifs li { position:relative; padding:24px; background:var(--verre); border:1px solid var(--trait); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+    display:flex; flex-direction:column; gap:10px; transition:box-shadow .25s, border-color .25s; }
+  .tarifs li::before, .tarifs li::after { content:""; position:absolute; width:14px; height:14px; border:2px solid var(--blanc); }
+  .tarifs li::before { top:-1px; left:-1px; border-right:0; border-bottom:0; }
+  .tarifs li::after { bottom:-1px; right:-1px; border-left:0; border-top:0; }
+  .tarifs li:hover { border-color:var(--blanc); box-shadow:0 0 30px rgba(255,255,255,.2); }
+  .tarifs .nom { font-weight:600; font-size:1.1rem; }
+  .tarifs .detail { color:var(--gris); font-size:.95rem; display:block; font-weight:400; }
+  .tarifs .prix { margin-top:auto; font-family:"Big Shoulders Display",Impact,sans-serif; font-weight:800; font-size:2.4rem; line-height:1; }
+
+  /* Infos : bloc blanc quadrillé */
+  .infos { background-color:var(--blanc); color:var(--noir);
+    background-image:linear-gradient(rgba(0,0,0,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.07) 1px,transparent 1px); background-size:48px 48px; }
+  .infos .grille { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:40px; }
+  .infos .bloc { background:var(--blanc); border:1px solid var(--noir); padding:28px; box-shadow:8px 8px 0 var(--noir); }
+  .infos h3 { font-family:"Big Shoulders Display",Impact,sans-serif; font-weight:800; font-size:1.7rem; margin-bottom:10px; }
+  .infos table { border-collapse:collapse; width:100%; }
+  .infos td { padding:7px 0; border-bottom:1px solid #ddd; }
+  .infos td:last-child { text-align:right; font-weight:600; }
+  .infos .btn { border-color:var(--noir); margin-top:18px; }
+  .infos .btn.plein { background:var(--noir); color:var(--blanc); }
+  .infos .btn.plein:hover { background:var(--blanc); color:var(--noir); box-shadow:none; }
+
+  footer { padding:32px 24px; text-align:center; color:var(--gris); font-size:.9rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="logo" href="#">Barber Shop Henri Barbusse Drancy</a>
+    <nav>
+      <a class="lien" href="#tarifs">Tarifs</a>
+      <a class="lien" href="#infos">Horaires</a>
+      <a class="btn" href="tel:+33100000000">Appeler</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="wrap">
+      <h1>Barber Shop <br>  93700</h1>
+      <p>Barber Shop salon de coiffure coiffeur barbier homme enfant drancy .</p>
+      <div class="actions">
+        <a class="btn plein" href="tel:+33100000000">Prendre rendez-vous</a>
+        <a class="btn" href="#tarifs">Voir les tarifs</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="pole" aria-hidden="true"></div>
+
+  <section id="tarifs">
+    <div class="wrap">
+      <h2>Les tarifs</h2>
+      <ul class="tarifs">
+        <li><span class="nom">Coupe adulte<span class="detail">Dégradé , Taper , Fade etc...</span></span><span class="prix">15 €</span></li>
+        <li><span class="nom">Coupe enfant<span class="detail">Jusqu'à 12 ans</span></span><span class="prix">10 €</span></li>
+        <li><span class="nom">Barbe<span class="detail">Serviette chaude et rasoir</span></span><span class="prix">8 €</span></li>
+        <li><span class="nom">Contour<span class="detail">Bien tracé et soigné</span></span><span class="prix">6 €</span></li>
+        <li><span class="nom">Soins visage<span class="detail">masque noir ou argile</span></span><span class="prix">20 €</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="infos" id="infos">
+    <div class="wrap grille">
+      <div class="bloc">
+        <h3>Horaires</h3>
+        <table>
+          <tr><td>Tous les jours</td><td>9h00 – 20h00</td></tr>
+        </table>
+      </div>
+      <div class="bloc">
+        <h3>Nous trouver</h3>
+        <p>168 Av. Henri Barbusse <br> 93700 Drancy</p>
+        <p style="margin-top:10px">07 69 36 87 98</p>
+        <a class="btn plein" href="tel:+370769368798">Appeler maintenant</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>Créé par Tarzan , © 2026 Tous droits réservés</footer>
+
+</body>
+</html>
