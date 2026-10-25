@@ -15,7 +15,7 @@
   body { background:var(--noir); color:var(--blanc); font-family:"Space Grotesk",system-ui,sans-serif; line-height:1.6; overflow-x:hidden; }
   a { color:inherit; }
   :focus-visible { outline:3px solid var(--blanc); outline-offset:3px; }
-  .wrap { max-width:1000px; margin:0 auto; padding:0 24px; position:relative; }
+  .wrap { max-width:1200px; margin:0 auto; padding:0 10px; position:relative; }
   .titre { font-family:"Big Shoulders Display",Impact,sans-serif; }
 
   /* En-tête en verre */
@@ -70,6 +70,28 @@
   .tarifs .detail { color:var(--gris); font-size:.95rem; display:block; font-weight:400; }
   .tarifs .prix { margin-top:auto; font-family:"Big Shoulders Display",Impact,sans-serif; font-weight:800; font-size:2.4rem; line-height:1; }
 
+  /* Galerie avant / après */
+  .galerie { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:22px; }
+  .compare { position:relative; margin:0; border:1px solid var(--trait); background:var(--verre); padding:10px; }
+  .compare::before, .compare::after { content:""; position:absolute; width:14px; height:14px; border:2px solid var(--blanc); z-index:3; }
+  .compare::before { top:-1px; left:-1px; border-right:0; border-bottom:0; }
+  .compare::after { bottom:-1px; right:-1px; border-left:0; border-top:0; }
+  .cadre { --pos:50%; position:relative; aspect-ratio:1/1; overflow:hidden; background:#111; }
+  .cadre .img { position:absolute; inset:0; background-size:cover; background-position:center; display:flex; align-items:flex-end; padding:14px; }
+  /* Remplacez les dégradés par vos photos : --avant:url(photos/coupe-avant.jpg) */
+  .cadre .avant { background-image:var(--avant, linear-gradient(160deg,#4a4a4a,#1a1a1a)); }
+  .cadre .apres { background-image:var(--apres, linear-gradient(160deg,#f2f2f2,#8a8a8a)); clip-path:inset(0 0 0 var(--pos)); justify-content:flex-end; }
+  .cadre .tag { font-family:"Big Shoulders Display",Impact,sans-serif; font-weight:800; font-size:1.1rem; letter-spacing:.08em; padding:2px 10px; background:var(--noir); color:var(--blanc); border:1px solid var(--blanc); }
+  .cadre .apres .tag { background:var(--blanc); color:var(--noir); }
+  .cadre .barre { position:absolute; top:0; bottom:0; left:var(--pos); width:2px; background:var(--blanc); box-shadow:0 0 18px rgba(255,255,255,.8); transform:translateX(-1px); pointer-events:none; z-index:2; }
+  .cadre .barre::after { content:"\2194"; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:38px; height:38px; display:grid; place-items:center; background:var(--blanc); color:var(--noir); border-radius:50%; font-weight:700; }
+  .cadre input { position:absolute; inset:0; width:100%; height:100%; opacity:0; cursor:ew-resize; z-index:4; margin:0; }
+  .cadre:focus-within { outline:3px solid var(--blanc); outline-offset:3px; }
+  .compare figcaption { padding:14px 4px 4px; font-weight:600; }
+  .compare figcaption span { display:block; color:var(--gris); font-weight:400; font-size:.9rem; }
+  .note-galerie { margin-top:22px; color:var(--gris); font-size:.9rem; }
+
+
   /* Infos : bloc blanc quadrillé */
   .infos { background-color:var(--blanc); color:var(--noir);
     background-image:linear-gradient(rgba(0,0,0,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.07) 1px,transparent 1px); background-size:48px 48px; }
@@ -90,11 +112,12 @@
 
 <header>
   <div class="wrap">
-    <a class="logo" href="#">Barber Shop Henri Barbusse Drancy</a>
+    <a class="logo" href="#">Thomas'Barber Shop Drancy</a>
     <nav>
       <a class="lien" href="#tarifs">Tarifs</a>
+      <a class="lien" href="#galerie">Galerie</a>
       <a class="lien" href="#infos">Horaires</a>
-      <a class="btn" href="tel:+33100000000">Appeler</a>
+      <a class="btn" href="tel:+33169348498">Appeler</a>
     </nav>
   </div>
 </header>
@@ -102,12 +125,8 @@
 <main>
   <div class="hero">
     <div class="wrap">
-      <h1>Barber Shop <br>  93700</h1>
-      <p>Barber Shop salon de coiffure coiffeur barbier homme enfant drancy .</p>
-      <div class="actions">
-        <a class="btn plein" href="tel:+33100000000">Prendre rendez-vous</a>
-        <a class="btn" href="#tarifs">Voir les tarifs</a>
-      </div>
+      <h1>Thomas'Barber Shop <br>  93700</h1>
+      <p>Meilleur barber shop du 93 , toujours faire confiance à notre barber .</p>
     </div>
   </div>
 
@@ -126,19 +145,107 @@
     </div>
   </section>
 
+  <section id="galerie">
+    <div class="wrap">
+      <h2>Choisissez votre coupe</h2>
+      <div class="galerie">
+        <figure class="compare">
+          <div class="cadre" style="--avant:url(11.jpg); --apres:url(12.jpg)">
+            <div class="img avant"><span class="tag">AVANT</span></div>
+            <div class="img apres"><span class="tag">APRÈS</span></div>
+            <div class="barre" aria-hidden="true"></div>
+            <input type="range" min="0" max="100" value="50" aria-label="Comparer avant et après : Fade + barbe">
+          </div>
+          <figcaption>Mid fade texturé<span>Dégradé net, dessus bouclé, barbe fondue.</span></figcaption>
+        </figure>
+        <figure class="compare">
+          <div class="cadre" style="--avant:url(21.jpg); --apres:url(22.jpg)">
+            <div class="img avant"><span class="tag">AVANT</span></div>
+            <div class="img apres"><span class="tag">APRÈS</span></div>
+            <div class="barre" aria-hidden="true"></div>
+            <input type="range" min="0" max="100" value="50" aria-label="Comparer avant et après : Fade texturé">
+          </div>
+          <figcaption>French crop <span>Dégradé net, dessus texturé, barbe fondue.</span></figcaption>
+        </figure>
+        <figure class="compare">
+          <div class="cadre" style="--avant:url(31.jpg); --apres:url(32.jpg)">
+            <div class="img avant"><span class="tag">AVANT</span></div>
+            <div class="img apres"><span class="tag">APRÈS</span></div>
+            <div class="barre" aria-hidden="true"></div>
+            <input type="range" min="0" max="100" value="50" aria-label="Comparer avant et après : Fade + frange">
+          </div>
+          <figcaption>Textured quiff<span>Dégradé net, dessus structuré, barbe courte.</span></figcaption>
+        </figure>
+        <figure class="compare">
+          <div class="cadre" style="--avant:url(41.jpg); --apres:url(42.jpg)">
+            <div class="img avant"><span class="tag">AVANT</span></div>
+            <div class="img apres"><span class="tag">APRÈS</span></div>
+            <div class="barre" aria-hidden="true"></div>
+            <input type="range" min="0" max="100" value="50" aria-label="Comparer avant et après : Fade + tresses">
+          </div>
+          <figcaption>Braids fade<span>Dégradé net, tresses plaquées, barbe fondue.</span></figcaption>
+        </figure>
+        <figure class="compare">
+          <div class="cadre" style="--avant:url(51.jpg); --apres:url(52.jpg)">
+            <div class="img avant"><span class="tag">AVANT</span></div>
+            <div class="img apres"><span class="tag">APRÈS</span></div>
+            <div class="barre" aria-hidden="true"></div>
+            <input type="range" min="0" max="100" value="50" aria-label="Comparer avant et après : Fade + tresses">
+          </div>
+          <figcaption>Twist fade<span>Dégradé net, twists définis, barbe fondue.</span></figcaption>
+        </figure>
+        <figure class="compare">
+          <div class="cadre" style="--avant:url(61.jpg); --apres:url(62.jpg)">
+            <div class="img avant"><span class="tag">AVANT</span></div>
+            <div class="img apres"><span class="tag">APRÈS</span></div>
+            <div class="barre" aria-hidden="true"></div>
+            <input type="range" min="0" max="100" value="50" aria-label="Comparer avant et après : Fade + tresses">
+          </div>
+          <figcaption>Taper fade bouclé<span>Côtés doux, boucles naturelles, barbe structurée.</span></figcaption>
+        </figure>
+        <figure class="compare">
+          <div class="cadre" style="--avant:url(71.jpg); --apres:url(72.jpg)">
+            <div class="img avant"><span class="tag">AVANT</span></div>
+            <div class="img apres"><span class="tag">APRÈS</span></div>
+            <div class="barre" aria-hidden="true"></div>
+            <input type="range" min="0" max="100" value="50" aria-label="Comparer avant et après : Fade + tresses">
+          </div>
+          <figcaption>Pompadour court<span>Dégradé net, dessus coiffé en arrière, barbe courte.</span></figcaption>
+        </figure>
+        <figure class="compare">
+          <div class="cadre" style="--avant:url(81.jpg); --apres:url(82.jpg)">
+            <div class="img avant"><span class="tag">AVANT</span></div>
+            <div class="img apres"><span class="tag">APRÈS</span></div>
+            <div class="barre" aria-hidden="true"></div>
+            <input type="range" min="0" max="100" value="50" aria-label="Comparer avant et après : Fade + tresses">
+          </div>
+          <figcaption>Caesar fade<span>Dégradé net, frange droite, entretien facile.</span></figcaption>
+        </figure>
+        <figure class="compare">
+          <div class="cadre" style="--avant:url(91.jpg); --apres:url(92.jpg)">
+            <div class="img avant"><span class="tag">AVANT</span></div>
+            <div class="img apres"><span class="tag">APRÈS</span></div>
+            <div class="barre" aria-hidden="true"></div>
+            <input type="range" min="0" max="100" value="50" aria-label="Comparer avant et après : Fade + tresses">
+          </div>
+          <figcaption>Buzz cut waves<span>Coupe ultra courte à la tondeuse, entretien facile.</span></figcaption>
+        </figure>
+  </section>
+
   <section class="infos" id="infos">
     <div class="wrap grille">
       <div class="bloc">
         <h3>Horaires</h3>
         <table>
-          <tr><td>Tous les jours</td><td>9h00 – 20h00</td></tr>
+          <tr><td>Lundi-Vendredi</td><td>10h00 – 18h00</td></tr>
+          <tr><td>Samedi</td><td>11h00 – 19h00</td></tr>
+          <tr><td>Dimanche</td><td>10h00 – 20h00</td></tr>
         </table>
       </div>
       <div class="bloc">
         <h3>Nous trouver</h3>
-        <p>168 Av. Henri Barbusse <br> 93700 Drancy</p>
-        <p style="margin-top:10px">07 69 36 87 98</p>
-        <a class="btn plein" href="tel:+370769368798">Appeler maintenant</a>
+        <p>120 Av. Henri Barbusse <br> 93700 Drancy</p>
+        <p style="margin-top:10px">01 69 34 84 98</p>
       </div>
     </div>
   </section>
@@ -146,5 +253,12 @@
 
 <footer>Créé par Tarzan , © 2026 Tous droits réservés</footer>
 
+<script>
+  document.querySelectorAll('.cadre').forEach(function(c){
+    var r=c.querySelector('input');
+    var maj=function(){ c.style.setProperty('--pos', r.value+'%'); };
+    r.addEventListener('input',maj); maj();
+  });
+</script>
 </body>
 </html>
